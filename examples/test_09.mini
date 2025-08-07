@@ -1,0 +1,10 @@
+--- Test 09: string-number Mix-Match ---
+
+string s1 = "abc";
+string s2 = "def";
+
+number x = 99;
+
+string output = s1 + toString(x) + s2;
+
+display (output);

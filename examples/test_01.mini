@@ -1,17 +1,9 @@
-number age;
+--- Test 1: Number and String Declaration, Assignment, Display ---
 
-string str = "My name is ";
-string name;
+number x;
+x = 123.456;
+display(x);
 
-fetch(age);
-fetch(name);
-
-string output = str + name;
-display(output);
-
-number y;
-
-repeat(age) {
-    
-    fetch(y);
-}
+string s;
+s = "Hello, World!";
+display(s);

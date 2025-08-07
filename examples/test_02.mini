@@ -1,22 +1,19 @@
-number age;
+--- Test 2: String Concatenation and Reassignment ---
 
-string str1 = "My name is ";
-string name;
-string str2 = ". My age is " + age;
+string a;
+string b;
+string c;
 
-fetch(age);
-fetch(name);
+a = "Hello";
+b = " ";
+c = "World!";
 
-string output = str1 + name + str2;
-display(output);
+string result;
 
-number x = 5;
-number y;
-number z = 0;
+result = a + b + c;
 
-repeat(x) {
-    
-    fetch(y);
-    z = y + z;
-    display(z);
-}
+display(result);
+
+result = result + "!!!";
+
+display(result);

@@ -1,0 +1,18 @@
+--- Test 5: if-else Block ---
+
+number val = 20;
+
+when(val > 40) {
+    display("Greater than 40");
+} otherwise {
+    display("Not greater than 40");
+}
+
+string msg;
+msg = "Test";
+
+when(msg == "Test") {
+    display("String matches");
+} otherwise {
+    display("String does not match");
+}

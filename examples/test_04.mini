@@ -1,0 +1,10 @@
+--- Test 4: Repeat Loop ---
+
+number loop_counter = 5;
+
+number i = 0;
+
+repeat(loop_counter) {
+    display(i);
+    i = i + 1;
+}

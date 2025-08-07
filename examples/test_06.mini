@@ -1,0 +1,11 @@
+--- Test 6: fetch-display with Prompt ---
+
+number num;
+display("Enter a number:");
+fetch(num);
+display(num);
+
+string str;
+display("Enter a string:");
+fetch(str);
+display(str);

@@ -1,0 +1,13 @@
+--- Test 07: Inner Loops Testv ---
+
+number x = 5;
+number y = 5;
+
+repeat (x) {
+    repeat (y) {
+        string asterisk = "*";
+        display(asterisk);
+    }
+    string eol = "\n";
+    display (eol);
+}

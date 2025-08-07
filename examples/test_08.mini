@@ -1,0 +1,15 @@
+--- Test 8: Complex Expression and Nested When (if) ---
+
+number a;
+number b;
+a = 5;
+b = 10;
+
+when((a * b) > 40) {
+    display("Product is large");
+    when(a == 5) {
+        display("a is 5");
+    }
+} otherwise {
+    display("Product is small");
+}
