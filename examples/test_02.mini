@@ -1,0 +1,22 @@
+number age;
+
+string str1 = "My name is ";
+string name;
+string str2 = ". My age is " + age;
+
+fetch(age);
+fetch(name);
+
+string output = str1 + name + str2;
+display(output);
+
+number x = 5;
+number y;
+number z = 0;
+
+repeat(x) {
+    
+    fetch(y);
+    z = y + z;
+    display(z);
+}

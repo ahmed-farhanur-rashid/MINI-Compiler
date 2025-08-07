@@ -7,6 +7,7 @@ typedef enum {
     AST_VAR,
     AST_DECL_ASSIGN,
     AST_DECL,
+    AST_ASSIGN,  // new
     AST_FETCH,
     AST_DISPLAY,
     AST_REPEAT,
@@ -28,34 +29,20 @@ typedef enum {
 
 typedef struct ASTNode {
     ASTType type;
-
-    // For variables and declarations
     char *name;
-
-    // For literals
     float fval;
     char *sval;
-
-    // Binary expressions
-    struct ASTNode *left;
-    struct ASTNode *right;
-
-    // Control flow
-    struct ASTNode *cond;
-    struct ASTNode *then_branch;
-    struct ASTNode *else_branch;
-
-    // Statements linked list
+    struct ASTNode *left, *right;
+    struct ASTNode *cond, *then_branch, *else_branch;
     struct ASTNode *next;
-
 } ASTNode;
 
-// Constructors
 ASTNode *make_number_node(float val);
 ASTNode *make_string_node(char *val);
 ASTNode *make_var_node(char *name);
 ASTNode *make_declaration_node(char *name, int vartype);
 ASTNode *make_declaration_assign_node(char *name, ASTNode *expr, int vartype);
+ASTNode *make_assign_node(char *name, ASTNode *expr); // new
 ASTNode *make_fetch_node(char *name);
 ASTNode *make_display_node(char *name);
 ASTNode *make_repeat_node(ASTNode *count_expr, ASTNode *body);

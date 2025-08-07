@@ -58,6 +58,20 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
             break;
         }
 
+        case AST_ASSIGN:
+        {
+            Symbol *sym = lookup_symbol(node->name);
+            if (!sym)
+            {
+                fprintf(stderr, "Internal error: unknown var %s\n", node->name);
+                exit(1);
+            }
+            fprintf(out, "%s = ", node->name);
+            generate_node(node->left, out, 0);
+            fprintf(out, ";\n");
+            break;
+        }
+
         case AST_DECL_ASSIGN:
         {
             const char *ctype = node->fval == TYPE_NUMBER ? "float" : "const char*";
@@ -102,14 +116,12 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
             }
             if (sym->type == TYPE_NUMBER)
             {
-                fprintf(out, "printf(\"Enter number for %s: \");\n", node->name);
                 fprintf(out, "scanf(\"%%f\", &%s);\n", node->name);
                 fprintf(out, "int __c; while ((__c = getchar()) != '\\n' && __c != EOF) { }\n"); // <--- FIX
             }
             else
             {
                 fprintf(out, "char __buffer[256];\n");
-                fprintf(out, "printf(\"Enter string for %s: \");\n", node->name);
                 fprintf(out, "fgets(__buffer, 256, stdin);\n");
                 fprintf(out, "__buffer[strcspn(__buffer, \"\\n\")] = 0;\n");
                 fprintf(out, "%s = strdup(__buffer);\n", node->name);

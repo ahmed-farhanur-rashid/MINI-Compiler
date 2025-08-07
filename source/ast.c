@@ -120,6 +120,17 @@ ASTNode *append_statements(ASTNode *list, ASTNode *stmt) {
     return list;
 }
 
+ASTNode *make_assign_node(char *name, ASTNode *expr) {
+    ASTNode *node = malloc(sizeof(ASTNode));
+    node->type = AST_ASSIGN;
+    node->name = strdup(name);
+    node->left = expr;
+    node->sval = NULL;
+    node->right = node->cond = node->then_branch = node->else_branch = node->next = NULL;
+    return node;
+}
+
+
 void free_ast(ASTNode *node) {
     if (!node) return;
     if (node->name) free(node->name);

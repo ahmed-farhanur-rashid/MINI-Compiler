@@ -34,7 +34,6 @@ ASTNode *root = NULL;
 
 %type <ast> program statements statement expression
 
-/* Operator precedence and associativity */
 %left OR
 %left AND
 %nonassoc EQ NEQ
@@ -70,6 +69,10 @@ statement:
   | STRING_TYPE IDENTIFIER SEMICOLON {
         check_declaration($2, TYPE_STRING);
         $$ = make_declaration_node($2, TYPE_STRING);
+    }
+  | IDENTIFIER ASSIGN expression SEMICOLON {
+        check_variable_declared($1);
+        $$ = make_assign_node($1, $3);
     }
   | FETCH LPAREN IDENTIFIER RPAREN SEMICOLON {
         check_variable_declared($3);

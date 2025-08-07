@@ -1,0 +1,10 @@
+number x = 5;
+number y;
+number z = 0;
+
+repeat(x) {
+    
+    fetch(y);
+    z = y + z;
+    display(z);
+}

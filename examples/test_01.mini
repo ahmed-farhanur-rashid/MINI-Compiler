@@ -1,0 +1,17 @@
+number age;
+
+string str = "My name is ";
+string name;
+
+fetch(age);
+fetch(name);
+
+string output = str + name;
+display(output);
+
+number y;
+
+repeat(age) {
+    
+    fetch(y);
+}
