@@ -1,0 +1,28 @@
+number x = 25;
+number y;
+number age;
+
+string str = "My name is ";
+string name;
+
+fetch(age);
+fetch(name);
+
+string output = str + name;
+display(output);
+
+repeat(x) {
+    fetch;
+    when(x != 15) {
+        string x = "It is not 15";
+        display(x);
+    }
+    otherwise {
+        string x = "Tt is 15.";
+        display(x);
+    }
+
+    when(x == 69) {
+        begone;
+    }
+}
