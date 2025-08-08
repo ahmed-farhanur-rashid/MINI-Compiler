@@ -1,0 +1,9 @@
+--- Repeat test ---
+repeat (3) {
+    display("Counting");
+}
+
+number times = 2;
+repeat (times) {
+    display("Variable repeat");
+}

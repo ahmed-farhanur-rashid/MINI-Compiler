@@ -1,0 +1,6 @@
+--- Simple test to see what works ---
+number x;
+x = 42;
+string simple;
+simple = toString(x);
+display(simple);

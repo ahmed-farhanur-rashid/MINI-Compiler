@@ -25,7 +25,7 @@ ASTNode *root = NULL;
 }
 
 %token <vtype> NUMBER_TYPE STRING_TYPE
-%token FETCH DISPLAY REPEAT WHEN OTHERWISE BEGONE
+%token FETCH DISPLAY PRINT REPEAT WHEN OTHERWISE BEGONE
 %token EQ NEQ LE GE LT GT AND OR
 %token ASSIGN SEMICOLON COMMA LPAREN RPAREN LBRACE RBRACE
 %token PLUS MINUS MUL DIV
@@ -78,9 +78,8 @@ statement:
         check_variable_declared($3);
         $$ = make_fetch_node($3);
     }
-  | DISPLAY LPAREN IDENTIFIER RPAREN SEMICOLON {
-        check_variable_declared($3);
-        $$ = make_display_node($3);
+  | DISPLAY LPAREN expression RPAREN SEMICOLON {
+        $$ = make_display_expression_node($3);
     }
   | REPEAT LPAREN expression RPAREN LBRACE statements RBRACE {
         $$ = make_repeat_node($3, $6);
@@ -106,6 +105,16 @@ expression:
     }
   | STRING_LITERAL {
         $$ = make_string_node($1);
+    }
+  | IDENTIFIER LPAREN expression RPAREN {
+        if (strcmp($1, "toString") == 0) {
+            $$ = make_tostring_node($3);
+        } else if (strcmp($1, "toNumber") == 0) {
+            $$ = make_tonumber_node($3);
+        } else {
+            yyerror("Unknown function");
+            YYABORT;
+        }
     }
   | expression PLUS expression {
         if ($1->type == AST_STRING || $1->type == AST_STRING_CONCAT || $3->type == AST_STRING || $3->type == AST_STRING_CONCAT) {

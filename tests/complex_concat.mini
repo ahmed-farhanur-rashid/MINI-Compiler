@@ -1,0 +1,24 @@
+--- Test complex string concatenation with toString() ---
+number pi;
+number scientific;
+string greeting;
+
+pi = 3.14159;
+scientific = 6.022e23;
+greeting = "Hello";
+
+--- Simple concatenation (should work) ---
+string simple;
+simple = "Pi is " + toString(pi);
+
+--- Complex concatenation (currently broken) ---
+string complex;
+complex = "Pi is " + toString(pi) + " and Avogadro is " + toString(scientific);
+
+--- Even more complex ---
+string veryComplex;
+veryComplex = greeting + " world! " + toString(pi) + " is pi and " + toString(scientific) + " is Avogadro's number.";
+
+display(simple + "\n");
+display(complex + "\n");
+display(veryComplex + "\n");

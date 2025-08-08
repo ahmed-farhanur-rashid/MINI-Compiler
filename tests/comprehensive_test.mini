@@ -1,0 +1,20 @@
+--- All working features test ---
+--- Basic declarations and assignments ---
+number x = 42;
+string s = "Hello";
+
+--- Basic operations ---
+display(x);
+display(s);
+
+--- String concatenation ---
+string result1 = s + " World";
+display(result1);
+
+--- toString function ---
+string result2 = toString(x);
+display(result2);
+
+--- Basic combined ---
+string result3 = s + " " + toString(x);
+display(result3);

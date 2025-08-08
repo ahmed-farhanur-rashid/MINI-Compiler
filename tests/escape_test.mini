@@ -1,0 +1,9 @@
+--- Escape sequence test ---
+string newline = "Line1\nLine2";
+display(newline);
+string tab = "Col1\tCol2";
+display(tab);
+string quote = "Say \"Hello\"";
+display(quote);
+string backslash = "Path\\File";  
+display(backslash);

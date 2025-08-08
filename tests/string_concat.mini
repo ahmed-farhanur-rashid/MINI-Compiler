@@ -1,0 +1,5 @@
+--- Test string + string concatenation ---
+string a = "Hello";
+string b = " World";
+string result = a + b;
+display(result);

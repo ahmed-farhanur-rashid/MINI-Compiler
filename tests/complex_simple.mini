@@ -1,0 +1,4 @@
+--- Test complex concatenation assignment ---
+number pi = 3.14159;
+string result = "Pi is " + toString(pi) + " approximately";
+display(result);

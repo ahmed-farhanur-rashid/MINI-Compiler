@@ -1,0 +1,40 @@
+--- STRING HANDLING STRESS TEST ---
+
+--- Test 1: All escape sequences ---
+string esc1 = "Line1\nLine2";
+string esc2 = "Tab\tSeparated";
+string esc3 = "Quote: \"Hello\"";
+string esc4 = "Backslash: \\path\\to\\file";
+string esc5 = "Carriage\rReturn";
+display(esc1);
+display(esc2);
+display(esc3);
+display(esc4);
+display(esc5);
+
+--- Test 2: Complex concatenation chains ---
+number pi = 3.14159;
+number e = 2.71828;
+string complex1 = "Pi=" + toString(pi) + ", E=" + toString(e);
+string complex2 = "Math: " + toString(pi) + " and " + toString(e) + " are constants";
+string complex3 = toString(pi) + "+" + toString(e) + "=" + toString(pi + e);
+display(complex1);
+display(complex2);
+display(complex3);
+
+--- Test 3: Very long strings ---
+string long1 = "This is a very long string that tests the memory allocation and reallocation capabilities of the string concatenation system in our MINI compiler.";
+string long2 = long1 + " " + long1;
+string long3 = long2 + " " + long2;
+display(long3);
+
+--- Test 4: Empty string handling ---
+string empty = "";
+string withEmpty = empty + "NotEmpty" + empty;
+display(withEmpty);
+
+--- Test 5: Mixed variable and literal concatenation ---
+string var1 = "Hello";
+string var2 = "World";
+string mixed = var1 + " " + var2 + "!";
+display(mixed);

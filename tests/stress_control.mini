@@ -1,0 +1,29 @@
+--- CONTROL FLOW STRESS TEST ---
+
+--- Test 1: Basic when/otherwise conditions ---
+number x = 5;
+number y = 10;
+
+when (x < y) {
+    display("x is less than y");
+}
+
+when (x > y) {
+    display("x is greater than y");
+} otherwise {
+    display("x is not greater than y");
+}
+
+--- Test 3: Repeat loops with numbers ---
+repeat (3) {
+    display("Loop iteration");
+}
+
+repeat (x) {
+    display("Variable repeat");
+}
+
+--- Test 4: Simple conditions ---
+when (x + y > 10) {
+    display("Sum is greater than 10");
+}

@@ -1,0 +1,7 @@
+--- Simple control test ---
+number x = 5;
+number y = 10;
+
+when (x < y) {
+    display("x is less than y");
+}

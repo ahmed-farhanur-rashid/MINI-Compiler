@@ -1,0 +1,62 @@
+--- ULTIMATE COMPREHENSIVE STRESS TEST ---
+
+--- Phase 1: All data types and operations ---
+number pi = 3.14159265359;
+number e = -2.718281828;
+number avogadro = 6.022e23;
+number electron = -1.602e-19;
+string greeting = "Hello";
+string world = "World";
+string empty = "";
+
+--- Phase 2: All string operations ---
+string simple_concat = greeting + " " + world;
+string complex_concat = "Pi=" + toString(pi) + ", E=" + toString(e);
+string mega_concat = greeting + " " + world + "! " + toString(pi) + " and " + toString(avogadro) + " are important.";
+
+--- Phase 3: All escape sequences ---
+string newlines = "Line1\nLine2\nLine3";
+string tabs = "Col1\tCol2\tCol3";
+string quotes = "He said \"Hello\" to her";
+string paths = "C:\\Users\\Name\\File.txt";
+
+--- Phase 4: Mathematical operations ---
+number sum = pi + e;
+number product = avogadro * electron;
+number complex_math = (pi * e) / (avogadro + electron);
+
+--- Phase 5: Control flow ---
+when (pi > e) {
+    display("Pi is greater than E");
+}
+
+when (electron < 0) {
+    display("Electron charge is negative");
+} otherwise {
+    display("This should not print");
+}
+
+--- Phase 6: Loops ---
+repeat (3) {
+    display("Loop iteration");
+}
+
+--- Phase 7: Display all results ---
+display(simple_concat);
+display(complex_concat);
+display(mega_concat);
+display(newlines);
+display(tabs);
+display(quotes);
+display(paths);
+display(toString(sum));
+display(toString(product));
+display(toString(complex_math));
+
+--- Phase 8: Type conversions ---
+string pi_str = toString(pi);
+string e_str = toString(e);
+number pi_back = toNumber(pi_str);
+number e_back = toNumber(e_str);
+
+display("Converted back: " + toString(pi_back) + " and " + toString(e_back));

@@ -1,0 +1,4 @@
+--- Test string + toString concatenation ---
+number x = 42;
+string result = "Number is " + toString(x);
+display(result);

@@ -18,6 +18,7 @@ int yylineno;
 "string"           { return STRING_TYPE; }
 "fetch"            { return FETCH; }
 "display"          { return DISPLAY; }
+"print"            { return PRINT; }
 "repeat"           { return REPEAT; }
 "when"             { return WHEN; }
 "otherwise"        { return OTHERWISE; }
@@ -44,19 +45,45 @@ int yylineno;
 "*"                { return MUL; }
 "/"                { return DIV; }
 
-\"([^"\n]*)\"      {
+\"([^"\\]*(\\.[^"\\]*)*)\"      {
     yylval.str = strdup(yytext + 1);
+    if (!yylval.str) {
+        fprintf(stderr, "Memory allocation failed for string literal\n");
+        exit(1);
+    }
     yylval.str[strlen(yylval.str) - 1] = '\0'; /* remove trailing " */
+    
+    /* Process escape sequences */
+    char *src = yylval.str, *dst = yylval.str;
+    while (*src) {
+        if (*src == '\\' && *(src + 1)) {
+            switch (*(src + 1)) {
+                case 'n': *dst++ = '\n'; src += 2; break;
+                case 't': *dst++ = '\t'; src += 2; break;
+                case 'r': *dst++ = '\r'; src += 2; break;
+                case '\\': *dst++ = '\\'; src += 2; break;
+                case '"': *dst++ = '"'; src += 2; break;
+                default: *dst++ = *src++; break;
+            }
+        } else {
+            *dst++ = *src++;
+        }
+    }
+    *dst = '\0';
     return STRING_LITERAL;
 }
 
-[0-9]+(\.[0-9]+)?  {
+-?[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)?  {
     yylval.fval = atof(yytext);
     return NUMBER_LITERAL;
 }
 
 [a-zA-Z_][a-zA-Z0-9_]* {
     yylval.str = strdup(yytext);
+    if (!yylval.str) {
+        fprintf(stderr, "Memory allocation failed for identifier\n");
+        exit(1);
+    }
     return IDENTIFIER;
 }
 

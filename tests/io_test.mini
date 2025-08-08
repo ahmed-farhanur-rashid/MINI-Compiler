@@ -1,0 +1,10 @@
+--- Input/Output test ---
+string name;
+number age;
+
+display("Enter your name: ");
+fetch(name);
+display("Enter your age: ");
+fetch(age);
+
+display("Hello " + name + ", you are " + toString(age) + " years old");

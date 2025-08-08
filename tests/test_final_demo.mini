@@ -1,0 +1,26 @@
+--- Complete Feature Demonstration ---
+
+string greeting = "Hello, World!\n";
+display(greeting);
+
+number pi = 3.14159;
+number negative = -42.0;
+number scientific = 6.02e23;
+
+string result = "Pi is " + toString(pi) + " and Avogadro is " + toString(scientific);
+display(result);
+display("\n");
+
+when (negative < 0) {
+    display("Negative numbers work: ");
+    display(toString(negative));
+    display("\n");
+}
+
+repeat(3) {
+    display("Memory management test ");
+}
+display("\n");
+
+string escaped = "Tabs:\twork\nNewlines:\nwork\nQuotes:\"work\"";
+display(escaped);

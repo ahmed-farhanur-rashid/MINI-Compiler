@@ -1,0 +1,9 @@
+--- When/otherwise test ---
+number x = 15;
+number y = 10;
+
+when (x < y) {
+    display("x is less than y");
+} otherwise {
+    display("x is not less than y");
+}

@@ -1,0 +1,32 @@
+--- Edge cases and limits test ---
+
+--- Test 1: Very large numbers ---
+number huge = 1.7976931348623157e+308;
+display(huge);
+
+--- Test 2: Very small numbers ---
+number tiny = 2.2250738585072014e-308;
+display(tiny);
+
+--- Test 3: Zero operations ---
+number zero = 0;
+number result1 = zero + 100;
+number result2 = 100 * zero;
+display(result1);
+display(result2);
+
+--- Test 4: String operations with special characters ---
+string special = "!@#$%^&*()_+-=[]{}|;':\",./<>?";
+display(special);
+
+--- Test 5: Long variable names ---
+string very_long_variable_name_to_test_identifier_limits = "test";
+display(very_long_variable_name_to_test_identifier_limits);
+
+--- Test 6: Nested expressions ---
+number complex = ((5 + 3) * (10 - 2)) / 4;
+display(complex);
+
+--- Test 7: String with numbers ---
+string mixed = "Value: " + toString(42) + " End";
+display(mixed);

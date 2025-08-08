@@ -1,0 +1,3 @@
+--- Test display with direct concatenation ---
+string simple = "Hello";
+display(simple + " World");

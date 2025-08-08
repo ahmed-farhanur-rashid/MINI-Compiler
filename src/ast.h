@@ -11,9 +11,13 @@ typedef enum {
     AST_ASSIGN,  // new
     AST_FETCH,
     AST_DISPLAY,
+    AST_DISPLAY_EXPR,
+    AST_PRINT,
     AST_REPEAT,
     AST_WHEN,
     AST_BREAK,
+    AST_TOSTRING,
+    AST_TONUMBER,
     AST_ADD,
     AST_SUB,
     AST_MUL,
@@ -26,20 +30,18 @@ typedef enum {
     AST_GE,
     AST_AND,
     AST_OR,
-    AST_STRING_CONCAT, // new for string concatenation
-    AST_FUNCTION_DECL, // function declaration
-    AST_FUNCTION_CALL  // function call
+    AST_STRING_CONCAT // new for string concatenation
 } ASTType;
 
 // Convert number to string
-char *toString(long double val);
+char *toString(double val);
 // Convert string to number
-long double toNumber(const char *str);
+double toNumber(const char *str);
 
 typedef struct ASTNode {
     ASTType type;
     char *name;
-    long double fval;
+    double fval;
     char *sval;
     struct ASTNode *left, *right;
     struct ASTNode *cond, *then_branch, *else_branch;
@@ -55,13 +57,15 @@ ASTNode *make_declaration_assign_node(char *name, ASTNode *expr, int vartype);
 ASTNode *make_assign_node(char *name, ASTNode *expr); // new
 ASTNode *make_fetch_node(char *name);
 ASTNode *make_display_node(char *name);
+ASTNode *make_display_expression_node(ASTNode *expr);
+ASTNode *make_print_node(char *name);
 ASTNode *make_repeat_node(ASTNode *count_expr, ASTNode *body);
 ASTNode *make_when_node(ASTNode *cond, ASTNode *then_branch, ASTNode *else_branch);
 ASTNode *make_break_node();
+ASTNode *make_tostring_node(ASTNode *expr);
+ASTNode *make_tonumber_node(ASTNode *expr);
 ASTNode *make_binary_node(ASTType type, ASTNode *left, ASTNode *right);
 ASTNode *append_statements(ASTNode *list, ASTNode *stmt);
-ASTNode *make_function_decl_node(char *name, ASTNode *params, ASTNode *body);
-ASTNode *make_function_call_node(char *name, ASTNode *args);
 
 void free_ast(ASTNode *node);
 

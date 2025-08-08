@@ -1,0 +1,53 @@
+--- NUMERIC OPERATIONS STRESS TEST ---
+
+--- Test 1: All numeric formats ---
+number int_pos = 42;
+number int_neg = -123;
+number decimal = 3.14159;
+number neg_decimal = -2.71828;
+number scientific_pos = 6.022e23;
+number scientific_neg = -1.602e-19;
+number scientific_big = 1.23e10;
+number scientific_small = 4.56e-8;
+
+display(int_pos);
+display(int_neg);
+display(decimal);
+display(neg_decimal);
+display(scientific_pos);
+display(scientific_neg);
+display(scientific_big);
+display(scientific_small);
+
+--- Test 2: Mathematical operations ---
+number sum = int_pos + int_neg;
+number diff = decimal - neg_decimal;
+number product = scientific_pos * scientific_neg;
+number quotient = scientific_big / scientific_small;
+
+display(sum);
+display(diff);
+display(product);
+display(quotient);
+
+--- Test 3: toString with all formats ---
+string str_int_pos = toString(int_pos);
+string str_int_neg = toString(int_neg);
+string str_decimal = toString(decimal);
+string str_scientific = toString(scientific_pos);
+
+display(str_int_pos);
+display(str_int_neg);
+display(str_decimal);
+display(str_scientific);
+
+--- Test 4: Edge case numbers ---
+number zero = 0;
+number tiny = 1e-15;
+number huge = 1e15;
+number precise = 123.456789123456;
+
+display(zero);
+display(tiny);
+display(huge);
+display(precise);
