@@ -31,14 +31,14 @@ long double toNumber(const char *str) {
     return strtold(str, NULL);
 }
 
-ASTNode *make_number_node(long double val) {
+ASTNode *make_number_node(double val) {
     ASTNode *node = malloc(sizeof(ASTNode));
     if (!node) {
         fprintf(stderr, "Memory allocation failed in make_number_node\n");
         exit(1);
     }
     node->type = AST_NUMBER;
-    node->fval = val;
+    node->fval = (long double)val;  // Convert double to long double for storage
     node->name = NULL;
     node->sval = NULL;
     node->left = node->right = node->cond = node->then_branch = node->else_branch = node->next = NULL;

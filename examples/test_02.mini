@@ -13,7 +13,3 @@ string result;
 result = a + b + c;
 
 display(result);
-
-result = result + "!!!";
-
-display(result);

@@ -93,7 +93,7 @@ typedef union YYSTYPE
 /* Line 1676 of yacc.c  */
 #line 20 "parser.y"
 
-    long double fval;
+    double fval;
     char *str;
     ASTNode *ast;
     VarType vtype;

@@ -18,7 +18,7 @@ ASTNode *root = NULL;
 }
 
 %union {
-    long double fval;
+    double fval;
     char *str;
     ASTNode *ast;
     VarType vtype;

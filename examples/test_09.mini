@@ -1,7 +1,8 @@
 --- Test 09: string-number Mix-Match ---
-
-string s1 = "abc";
-string s2 = "def";
+string s1;
+string s2;
+s1 = "abc";
+s2 = "def";
 
 number x = 99;
 

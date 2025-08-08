@@ -44,7 +44,12 @@ void generate_code(ASTNode *root, const char *input_filename)
     char cmd[600];
     snprintf(cmd, sizeof(cmd), "gcc \"%s\" -o \"%s\"", out_c, out_exe);
     system(cmd);
-    printf("Compiled to %s\n", out_exe);
+    
+    // Extract just the filename from the input path for display
+    char display_name[256];
+    strncpy(display_name, filename, sizeof(display_name));
+    display_name[sizeof(display_name)-1] = '\0';
+    printf("Compiled to %s.exe\n", base_name);
 }
 
 static void generate_node(ASTNode *node, FILE *out, int indent)
@@ -58,7 +63,7 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
         switch (node->type)
         {
         case AST_NUMBER:
-            fprintf(out, "%f", node->fval);
+            fprintf(out, "%f", (double)node->fval);
             break;
 
         case AST_STRING:
@@ -71,7 +76,7 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
 
         case AST_DECL:
         {
-            const char *ctype = node->fval == TYPE_NUMBER ? "float" : "const char*";
+            const char *ctype = node->fval == TYPE_NUMBER ? "long double" : "const char*";
             fprintf(out, "%s %s;\n", ctype, node->name);
             break;
         }
@@ -123,11 +128,12 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
                     fprintf(out, ";\n");
                 }
             } else {
+                // Handle number assignments
                 fprintf(out, "%s = ", node->name);
                 if (node->left) {
                     generate_node(node->left, out, 0);
                 } else {
-                    fprintf(out, "%Lf", node->fval);
+                    fprintf(out, "0.0");
                 }
                 fprintf(out, ";\n");
             }
@@ -176,7 +182,7 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
             }
             if (sym->type == TYPE_NUMBER)
             {
-                fprintf(out, "scanf(\"%%f\", &%s);\n", node->name);
+                fprintf(out, "scanf(\"%%Lf\", &%s);\n", node->name);
                 fprintf(out, "int __c; while ((__c = getchar()) != '\\n' && __c != EOF) { }\n"); // <--- FIX
             }
             else
@@ -199,7 +205,7 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
             }
             if (sym->type == TYPE_NUMBER)
             {
-                fprintf(out, "printf(\"%%f\\n\", %s);\n", node->name);
+                fprintf(out, "printf(\"%%f\\n\", (double)%s);\n", node->name);
             }
             else
             {

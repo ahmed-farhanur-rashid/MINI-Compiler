@@ -11,7 +11,8 @@ int yylineno;
 %%
 "---"              { BEGIN(COMMENT); }
 <COMMENT>"---"      { BEGIN(INITIAL); }
-<COMMENT>[\s\S]    ; /* skip all content inside comment */
+<COMMENT>.         ; /* skip any character inside comment */
+<COMMENT>\n        ; /* skip newlines inside comment */
 
 "number"           { return NUMBER_TYPE; }
 "string"           { return STRING_TYPE; }
@@ -50,7 +51,7 @@ int yylineno;
 }
 
 [0-9]+(\.[0-9]+)?  {
-    yylval.fval = strtold(yytext, NULL);
+    yylval.fval = atof(yytext);
     return NUMBER_LITERAL;
 }
 

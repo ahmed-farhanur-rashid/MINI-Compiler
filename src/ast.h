@@ -47,7 +47,7 @@ typedef struct ASTNode {
 } ASTNode;
 
 ASTNode *make_string_concat_node(ASTNode *left, ASTNode *right);
-ASTNode *make_number_node(long double val);
+ASTNode *make_number_node(double val);
 ASTNode *make_string_node(char *val);
 ASTNode *make_var_node(char *name);
 ASTNode *make_declaration_node(char *name, int vartype);
