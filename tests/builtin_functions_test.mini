@@ -1,0 +1,15 @@
+--- Test currently supported built-in functions ---
+number x = 42.5;
+string s = "hello";
+
+--- Built-in type conversion functions ---
+string num_as_string = toString(x);
+display(num_as_string);
+
+number string_as_num = toNumber("123.45");
+display(string_as_num);
+
+--- List functions ---
+list<number> nums(2);
+nums.push_back(100);
+display(nums.size());

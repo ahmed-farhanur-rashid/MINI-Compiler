@@ -1,0 +1,3 @@
+// Simple list test
+list<number> nums(3);
+display("List declared successfully");

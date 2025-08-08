@@ -1,0 +1,4 @@
+--- Test just the list keyword ---
+number test;
+string msg = "Basic test works";
+display(msg);

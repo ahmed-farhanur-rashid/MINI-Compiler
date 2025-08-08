@@ -25,9 +25,10 @@ ASTNode *root = NULL;
 }
 
 %token <vtype> NUMBER_TYPE STRING_TYPE
+%token LIST_TYPE
 %token FETCH DISPLAY PRINT REPEAT WHEN OTHERWISE BEGONE
 %token EQ NEQ LE GE LT GT AND OR
-%token ASSIGN SEMICOLON COMMA LPAREN RPAREN LBRACE RBRACE
+%token ASSIGN SEMICOLON COMMA LPAREN RPAREN LBRACE RBRACE LBRACKET RBRACKET DOT
 %token PLUS MINUS MUL DIV
 %token <fval> NUMBER_LITERAL
 %token <str> IDENTIFIER STRING_LITERAL
@@ -70,9 +71,31 @@ statement:
         check_declaration($2, TYPE_STRING);
         $$ = make_declaration_node($2, TYPE_STRING);
     }
+  | LIST_TYPE LT NUMBER_TYPE GT IDENTIFIER LPAREN expression RPAREN SEMICOLON {
+        check_declaration($5, TYPE_LIST_NUMBER);
+        $$ = make_list_decl_node($5, LIST_TYPE_NUMBER, $7);
+    }
+  | LIST_TYPE LT STRING_TYPE GT IDENTIFIER LPAREN expression RPAREN SEMICOLON {
+        check_declaration($5, TYPE_LIST_STRING);
+        $$ = make_list_decl_node($5, LIST_TYPE_STRING, $7);
+    }
   | IDENTIFIER ASSIGN expression SEMICOLON {
         check_variable_declared($1);
         $$ = make_assign_node($1, $3);
+    }
+  | IDENTIFIER LBRACKET expression RBRACKET ASSIGN expression SEMICOLON {
+        check_variable_declared($1);
+        ASTNode *access = make_list_access_node($1, $3);
+        $$ = make_assign_node(NULL, $6);  // Special assignment handling needed in codegen
+        $$->left = access;
+    }
+  | IDENTIFIER DOT IDENTIFIER LPAREN expression RPAREN SEMICOLON {
+        check_variable_declared($1);
+        $$ = make_list_func_node($1, $3, $5);
+    }
+  | IDENTIFIER DOT IDENTIFIER LPAREN RPAREN SEMICOLON {
+        check_variable_declared($1);
+        $$ = make_list_func_node($1, $3, NULL);
     }
   | FETCH LPAREN IDENTIFIER RPAREN SEMICOLON {
         check_variable_declared($3);
@@ -115,6 +138,18 @@ expression:
             yyerror("Unknown function");
             YYABORT;
         }
+    }
+  | IDENTIFIER LBRACKET expression RBRACKET {
+        check_variable_declared($1);
+        $$ = make_list_access_node($1, $3);
+    }
+  | IDENTIFIER DOT IDENTIFIER LPAREN expression RPAREN {
+        check_variable_declared($1);
+        $$ = make_list_func_node($1, $3, $5);
+    }
+  | IDENTIFIER DOT IDENTIFIER LPAREN RPAREN {
+        check_variable_declared($1);
+        $$ = make_list_func_node($1, $3, NULL);
     }
   | expression PLUS expression {
         if ($1->type == AST_STRING || $1->type == AST_STRING_CONCAT || $3->type == AST_STRING || $3->type == AST_STRING_CONCAT) {

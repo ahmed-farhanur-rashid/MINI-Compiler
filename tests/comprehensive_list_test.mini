@@ -1,0 +1,47 @@
+--- Comprehensive List Test with C++ Vector Functions ---
+
+--- Test list<number> declarations and basic operations ---
+list<number> nums(2);
+display(nums.size());
+
+--- Test push_back operations ---
+nums.push_back(100.5);
+nums.push_back(200.7);
+nums.push_back(300.9);
+nums.push_back(400.1);
+
+--- Test size after push_back ---
+display(nums.size());
+
+--- Test array-style access ---
+display(nums[0]);
+display(nums[1]);
+display(nums[2]);
+display(nums[3]);
+
+--- Test pop_back operations ---
+nums.pop_back();
+display(nums.size());
+nums.pop_back();
+display(nums.size());
+
+--- Test list<string> with dynamic resizing ---
+list<string> words(1);
+words.push_back("first");
+words.push_back("second");
+words.push_back("third");
+words.push_back("fourth");
+words.push_back("fifth");
+
+--- Test string list access ---
+display(words.size());
+display(words[0]);
+display(words[1]);
+display(words[2]);
+display(words[3]);
+display(words[4]);
+
+--- Test mixed operations ---
+words.pop_back();
+words.pop_back();
+display(words.size());

@@ -1,0 +1,11 @@
+--- Test user-defined functions ---
+
+--- Try to define a simple function ---
+function add(number a, number b) {
+    number result = a + b;
+    return result;
+}
+
+--- Try to call the function ---
+number x = add(5, 3);
+display(x);

@@ -336,6 +336,23 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
                 fprintf(out, "char* __temp = ");
                 generate_node(node->left, out, 0);
                 fprintf(out, "; printf(\"%%s\", __temp); ");
+            } else if (node->left->type == AST_LIST_ACCESS) {
+                // List access - check the list type
+                Symbol *sym = lookup_symbol(node->left->name);
+                if (sym && sym->type == TYPE_LIST_STRING) {
+                    fprintf(out, "printf(\"%%s\", ");
+                    generate_node(node->left, out, 0);
+                    fprintf(out, "); ");
+                } else {
+                    fprintf(out, "printf(\"%%g\", (double)(");
+                    generate_node(node->left, out, 0);
+                    fprintf(out, ")); ");
+                }
+            } else if (node->left->type == AST_LIST_FUNC) {
+                // List function call (like size()) - always numeric
+                fprintf(out, "printf(\"%%g\", (double)(");
+                generate_node(node->left, out, 0);
+                fprintf(out, ")); ");
             } else {
                 // Check if it might be a string expression
                 if (node->left->type == AST_ADD || 
@@ -682,6 +699,79 @@ static void generate_node(ASTNode *node, FILE *out, int indent)
             fprintf(out, "atof(");
             generate_node(node->left, out, 0);
             fprintf(out, ")");
+            break;
+        }
+
+        case AST_LIST_DECL:
+        {
+            const char *element_type = (node->list_type == LIST_TYPE_NUMBER) ? "double" : "char*";
+            fprintf(out, "// List declaration: %s\n", node->name);
+            indent_spaces(out, indent);
+            fprintf(out, "%s *%s;\n", element_type, node->name);
+            indent_spaces(out, indent);
+            fprintf(out, "int %s_size = ", node->name);
+            generate_node(node->size_expr, out, 0);
+            fprintf(out, ";\n");
+            indent_spaces(out, indent);
+            fprintf(out, "int %s_capacity = %s_size;\n", node->name, node->name);
+            indent_spaces(out, indent);
+            fprintf(out, "int %s_count = 0;\n", node->name);
+            indent_spaces(out, indent);
+            fprintf(out, "%s = malloc(sizeof(%s) * %s_capacity);\n", node->name, element_type, node->name);
+            indent_spaces(out, indent);
+            fprintf(out, "__register_ptr(%s);\n", node->name);
+            break;
+        }
+
+        case AST_LIST_ACCESS:
+        {
+            fprintf(out, "%s[(int)(", node->name);
+            generate_node(node->index_expr, out, 0);
+            fprintf(out, ")]");
+            break;
+        }
+
+        case AST_LIST_FUNC:
+        {
+            if (strcmp(node->func_name, "push_back") == 0) {
+                fprintf(out, "// %s.push_back()\n", node->name);
+                indent_spaces(out, indent);
+                fprintf(out, "if (%s_count >= %s_capacity) {\n", node->name, node->name);
+                indent_spaces(out, indent + 4);
+                fprintf(out, "%s_capacity *= 2;\n", node->name);
+                indent_spaces(out, indent + 4);
+                Symbol *sym = lookup_symbol(node->name);
+                const char *element_type = (sym && (sym->type == TYPE_LIST_NUMBER)) ? "double" : "char*";
+                fprintf(out, "%s = realloc(%s, sizeof(%s) * %s_capacity);\n", 
+                        node->name, node->name, element_type, node->name);
+                indent_spaces(out, indent);
+                fprintf(out, "}\n");
+                indent_spaces(out, indent);
+                fprintf(out, "%s[%s_count++] = ", node->name, node->name);
+                if (node->value_expr) {
+                    generate_node(node->value_expr, out, 0);
+                }
+                fprintf(out, ";\n");
+            }
+            else if (strcmp(node->func_name, "pop_back") == 0) {
+                fprintf(out, "// %s.pop_back()\n", node->name);
+                indent_spaces(out, indent);
+                fprintf(out, "if (%s_count > 0) %s_count--;\n", node->name, node->name);
+            }
+            else if (strcmp(node->func_name, "size") == 0) {
+                fprintf(out, "%s_count", node->name);
+            }
+            else if (strcmp(node->func_name, "at") == 0) {
+                fprintf(out, "%s[", node->name);
+                if (node->value_expr) {
+                    generate_node(node->value_expr, out, 0);
+                }
+                fprintf(out, "]");
+            }
+            else {
+                fprintf(stderr, "Unknown list function: %s\n", node->func_name);
+                exit(1);
+            }
             break;
         }
 

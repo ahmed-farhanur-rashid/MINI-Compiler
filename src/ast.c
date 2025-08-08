@@ -173,15 +173,46 @@ ASTNode *append_statements(ASTNode *list, ASTNode *stmt) {
     return list;
 }
 
+// List function implementations
+ASTNode *make_list_decl_node(char *name, int list_type, ASTNode *size_expr) {
+    ASTNode *node = safe_malloc_node();
+    node->type = AST_LIST_DECL;
+    node->name = strdup(name);
+    node->list_type = list_type;
+    node->size_expr = size_expr;
+    return node;
+}
+
+ASTNode *make_list_access_node(char *name, ASTNode *index_expr) {
+    ASTNode *node = safe_malloc_node();
+    node->type = AST_LIST_ACCESS;
+    node->name = strdup(name);
+    node->index_expr = index_expr;
+    return node;
+}
+
+ASTNode *make_list_func_node(char *name, char *func_name, ASTNode *value_expr) {
+    ASTNode *node = safe_malloc_node();
+    node->type = AST_LIST_FUNC;
+    node->name = strdup(name);
+    node->func_name = strdup(func_name);
+    node->value_expr = value_expr;
+    return node;
+}
+
 void free_ast(ASTNode *node) {
     if (!node) return;
     if (node->name) free(node->name);
     if (node->sval) free(node->sval);
+    if (node->func_name) free(node->func_name);
     free_ast(node->left);
     free_ast(node->right);
     free_ast(node->cond);
     free_ast(node->then_branch);
     free_ast(node->else_branch);
     free_ast(node->next);
+    free_ast(node->size_expr);
+    free_ast(node->index_expr);
+    free_ast(node->value_expr);
     free(node);
 }

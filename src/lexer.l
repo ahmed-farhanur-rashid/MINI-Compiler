@@ -14,8 +14,9 @@ int yylineno;
 <COMMENT>.         ; /* skip any character inside comment */
 <COMMENT>\n        ; /* skip newlines inside comment */
 
-"number"           { return NUMBER_TYPE; }
-"string"           { return STRING_TYPE; }
+"number"           { yylval.vtype = TYPE_NUMBER; return NUMBER_TYPE; }
+"string"           { yylval.vtype = TYPE_STRING; return STRING_TYPE; }
+"list"             { return LIST_TYPE; }
 "fetch"            { return FETCH; }
 "display"          { return DISPLAY; }
 "print"            { return PRINT; }
@@ -40,6 +41,11 @@ int yylineno;
 ")"                { return RPAREN; }
 "{"                { return LBRACE; }
 "}"                { return RBRACE; }
+"["                { return LBRACKET; }
+"]"                { return RBRACKET; }
+"<"                { return LT; }
+">"                { return GT; }
+"."                { return DOT; }
 "+"                { return PLUS; }
 "-"                { return MINUS; }
 "*"                { return MUL; }

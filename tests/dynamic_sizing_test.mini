@@ -1,0 +1,21 @@
+--- Test Dynamic Sizing: Can we push more than initial size? ---
+list<number> small_list(2);
+
+--- Push more items than initial size ---
+small_list.push_back(10);
+small_list.push_back(20);
+small_list.push_back(30);
+small_list.push_back(40);
+small_list.push_back(50);
+small_list.push_back(60);
+
+--- Check final size ---
+display(small_list.size());
+
+--- Access all elements ---
+display(small_list[0]);
+display(small_list[1]);
+display(small_list[2]);
+display(small_list[3]);
+display(small_list[4]);
+display(small_list[5]);

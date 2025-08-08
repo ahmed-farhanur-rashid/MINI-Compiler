@@ -1,0 +1,7 @@
+--- Test simpler function syntax ---
+
+--- Try different syntax patterns ---
+number add(number a, number b);
+
+--- Or maybe just direct calls ---
+number result = myFunction(5);

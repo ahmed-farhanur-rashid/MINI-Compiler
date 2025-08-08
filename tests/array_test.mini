@@ -1,0 +1,4 @@
+--- List test with different syntax ---
+number list;
+list = 1, 2, 3;
+display(list);

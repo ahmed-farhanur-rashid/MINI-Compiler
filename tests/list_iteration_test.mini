@@ -1,0 +1,39 @@
+--- Test List Iteration and Display ---
+list<number> numbers(3);
+numbers.push_back(100);
+numbers.push_back(200);
+numbers.push_back(300);
+numbers.push_back(400);
+numbers.push_back(500);
+
+--- Display list size ---
+string size_msg = "List size: ";
+display(size_msg);
+display(numbers.size());
+
+--- Iterate through list using repeat ---
+string msg = "Elements: ";
+display(msg);
+
+number i = 0;
+repeat(numbers.size()) {
+    display(numbers[i]);
+    i = i + 1;
+}
+
+--- Test with string list ---
+list<string> words(2);
+words.push_back("hello");
+words.push_back("world");
+words.push_back("from");
+words.push_back("MINI");
+words.push_back("language");
+
+string word_msg = "Words: ";
+display(word_msg);
+
+number j = 0;
+repeat(words.size()) {
+    display(words[j]);
+    j = j + 1;
+}

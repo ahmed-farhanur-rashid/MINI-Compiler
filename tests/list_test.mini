@@ -1,0 +1,25 @@
+--- Test list functionality with C++ vector-like behavior ---
+list<number> numbers(5);
+list<string> words(3);
+
+--- Test push_back ---
+numbers.push_back(10.5);
+numbers.push_back(20.7);
+numbers.push_back(30.9);
+
+words.push_back("hello");
+words.push_back("world");
+
+--- Test size ---
+display(numbers.size());
+display(words.size());
+
+--- Test access ---
+display(numbers[0]);
+display(numbers[1]);
+display(words[0]);
+display(words[1]);
+
+--- Test pop_back ---
+numbers.pop_back();
+display(numbers.size());

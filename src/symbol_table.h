@@ -1,7 +1,12 @@
 #ifndef SYMBOL_TABLE_H
 #define SYMBOL_TABLE_H
 
-typedef enum { TYPE_NUMBER = 1, TYPE_STRING = 2 } VarType;
+typedef enum { 
+    TYPE_NUMBER = 1, 
+    TYPE_STRING = 2, 
+    TYPE_LIST_NUMBER = 3, 
+    TYPE_LIST_STRING = 4 
+} VarType;
 
 typedef struct Symbol {
     char *name;

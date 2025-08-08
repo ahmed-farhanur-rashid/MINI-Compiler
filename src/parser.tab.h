@@ -53,35 +53,39 @@
    enum yytokentype {
      NUMBER_TYPE = 258,
      STRING_TYPE = 259,
-     FETCH = 260,
-     DISPLAY = 261,
-     PRINT = 262,
-     REPEAT = 263,
-     WHEN = 264,
-     OTHERWISE = 265,
-     BEGONE = 266,
-     EQ = 267,
-     NEQ = 268,
-     LE = 269,
-     GE = 270,
-     LT = 271,
-     GT = 272,
-     AND = 273,
-     OR = 274,
-     ASSIGN = 275,
-     SEMICOLON = 276,
-     COMMA = 277,
-     LPAREN = 278,
-     RPAREN = 279,
-     LBRACE = 280,
-     RBRACE = 281,
-     PLUS = 282,
-     MINUS = 283,
-     MUL = 284,
-     DIV = 285,
-     NUMBER_LITERAL = 286,
-     IDENTIFIER = 287,
-     STRING_LITERAL = 288
+     LIST_TYPE = 260,
+     FETCH = 261,
+     DISPLAY = 262,
+     PRINT = 263,
+     REPEAT = 264,
+     WHEN = 265,
+     OTHERWISE = 266,
+     BEGONE = 267,
+     EQ = 268,
+     NEQ = 269,
+     LE = 270,
+     GE = 271,
+     LT = 272,
+     GT = 273,
+     AND = 274,
+     OR = 275,
+     ASSIGN = 276,
+     SEMICOLON = 277,
+     COMMA = 278,
+     LPAREN = 279,
+     RPAREN = 280,
+     LBRACE = 281,
+     RBRACE = 282,
+     LBRACKET = 283,
+     RBRACKET = 284,
+     DOT = 285,
+     PLUS = 286,
+     MINUS = 287,
+     MUL = 288,
+     DIV = 289,
+     NUMBER_LITERAL = 290,
+     IDENTIFIER = 291,
+     STRING_LITERAL = 292
    };
 #endif
 
@@ -102,7 +106,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 106 "parser.tab.h"
+#line 110 "parser.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
