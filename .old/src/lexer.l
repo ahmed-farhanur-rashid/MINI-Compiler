@@ -10,7 +10,7 @@ int yylineno;
 
 %%
 "---"              { BEGIN(COMMENT); }
-<COMMENT>"---"      { BEGIN(INITIAL); }
+<COMMENT>"---"     { BEGIN(INITIAL); }
 <COMMENT>.         ; /* skip any character inside comment */
 <COMMENT>\n        ; /* skip newlines inside comment */
 
