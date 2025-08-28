@@ -27,12 +27,12 @@ ASTNode *make_string_concat_node(ASTNode *left, ASTNode *right) {
 
 // Converts a double to a dynamically allocated string
 char *toString(double val) {
-    char *buffer = malloc(64);
+    char *buffer = malloc(72);
     if (!buffer) return NULL;
     sprintf(buffer, "%.15g", val);
     
     // Remove trailing zeros
-    char *p = buffer + strlen(buffer) - 1;
+    char *p = buffer + strlen(buffer) - 1; // Gets the pointer to point to the last character in the buffer
     while(p > buffer && *p == '0' && p > strchr(buffer, '.')) *p-- = '\0';
     if(p > buffer && *p == '.') *p = '\0';
     

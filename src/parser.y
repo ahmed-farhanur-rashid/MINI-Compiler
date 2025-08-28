@@ -194,6 +194,9 @@ expression:
   | LPAREN expression RPAREN {
         $$ = $2;
     }
+  /*| MINUS expression %prec UMINUS {
+        $$ = make_unary_node(AST_NEGATE, $2);
+    }*/
 ;
 
 %%
